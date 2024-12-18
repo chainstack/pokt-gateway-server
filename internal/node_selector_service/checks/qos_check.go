@@ -9,9 +9,8 @@ import (
 )
 
 const (
-	chainMorseMainnetSolanaCustom = "C006"
-	chainMorseMainnetPokt         = "0001"
-	chainMorseMainnetSolana       = "0006"
+	chainMorseMainnetPokt   = "0001"
+	chainMorseMainnetSolana = "F025"
 )
 
 const (
@@ -33,7 +32,10 @@ type Check struct {
 	ChainNetworkProvider config2.ChainNetworkProvider
 }
 
-func NewCheck(pocketRelayer pokt_v0.PocketRelayer, chainConfiguration chain_configurations_registry.ChainConfigurationsService, chainNetworkProvider config2.ChainNetworkProvider) *Check {
+func NewCheck(pocketRelayer pokt_v0.PocketRelayer,
+	chainConfiguration chain_configurations_registry.ChainConfigurationsService,
+	chainNetworkProvider config2.ChainNetworkProvider,
+) *Check {
 	return &Check{PocketRelayer: pocketRelayer, ChainConfiguration: chainConfiguration, ChainNetworkProvider: chainNetworkProvider}
 }
 
@@ -42,7 +44,7 @@ func (c *Check) IsSolanaChain(node *qos_models.QosNode) bool {
 	if c.ChainNetworkProvider.GetChainNetwork() == chain_network.MorseTestnet {
 		return chainId == chainMorseTestnetSolana
 	}
-	return chainId == chainMorseMainnetSolana || chainId == chainMorseMainnetSolanaCustom
+	return chainId == chainMorseMainnetSolana
 }
 
 func (c *Check) IsPoktChain(node *qos_models.QosNode) bool {
